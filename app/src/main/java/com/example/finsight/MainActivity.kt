@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -20,6 +19,7 @@ import com.example.finsight.presentation.components.FinsightBottomBar
 import com.example.finsight.presentation.navigation.NavGraph
 import com.example.finsight.presentation.navigation.Screen
 import com.example.finsight.presentation.navigation.bottomNavItems
+import com.example.finsight.presentation.screens.login.LoginScreen
 import com.example.finsight.presentation.screens.settings.SettingsDataStore
 import com.example.finsight.presentation.theme.FinsightTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,6 +35,9 @@ class MainViewModel @Inject constructor(
 ) : ViewModel() {
     val darkMode: StateFlow<Boolean> = settingsDataStore.darkMode
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), false)
+
+    val userName: StateFlow<String> = settingsDataStore.userName
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), "")
 }
 
 @AndroidEntryPoint
@@ -48,24 +51,37 @@ class MainActivity : ComponentActivity() {
         setContent {
             val mainViewModel: MainViewModel = hiltViewModel()
             val darkMode by mainViewModel.darkMode.collectAsState()
+            val userName by mainViewModel.userName.collectAsState()
 
             FinsightTheme(darkTheme = darkMode) {
-                val navController = rememberNavController()
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.destination?.route
+                // Show login if userName is empty (not yet set)
+                val isLoggedIn = userName.isNotBlank()
 
-                // Show bottom bar only on main tabs
-                val showBottomBar = bottomNavItems.any { it.route == currentRoute }
+                if (!isLoggedIn) {
+                    LoginScreen(
+                        onLoginSuccess = { /* userName is saved, state updates reactively */ }
+                    )
+                } else {
+                    val navController = rememberNavController()
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentRoute = navBackStackEntry?.destination?.route
 
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    bottomBar = {
-                        if (showBottomBar) {
-                            FinsightBottomBar(navController = navController)
+                    val showBottomBar = bottomNavItems.any { it.route == currentRoute }
+
+                    Scaffold(
+                        modifier = Modifier.fillMaxSize(),
+                        bottomBar = {
+                            if (showBottomBar) {
+                                FinsightBottomBar(navController = navController)
+                            }
                         }
+                    ) { innerPadding ->
+                        // FIX: Pass innerPadding so content isn't hidden behind nav bar
+                        NavGraph(
+                            navController = navController,
+                            modifier = Modifier.padding(bottom = innerPadding.calculateBottomPadding())
+                        )
                     }
-                ) { innerPadding ->
-                    NavGraph(navController = navController)
                 }
             }
         }

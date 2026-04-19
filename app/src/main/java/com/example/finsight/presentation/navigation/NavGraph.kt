@@ -3,6 +3,7 @@ package com.example.finsight.presentation.navigation
 import androidx.compose.animation.*
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -17,10 +18,11 @@ import com.example.finsight.presentation.screens.transactions.AddEditTransaction
 import com.example.finsight.presentation.screens.transactions.TransactionsScreen
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController,
         startDestination = Screen.Home.route,
+        modifier = modifier,
         enterTransition = {
             fadeIn(animationSpec = tween(220)) + slideInHorizontally(
                 animationSpec = tween(220),
@@ -50,7 +52,8 @@ fun NavGraph(navController: NavHostController) {
             HomeScreen(
                 onNavigateToTransactions = { navController.navigate(Screen.Transactions.route) },
                 onNavigateToAddTransaction = { navController.navigate(Screen.AddTransaction.createRoute()) },
-                onNavigateToSettings = { navController.navigate(Screen.Settings.route) }
+                onNavigateToSettings = { navController.navigate(Screen.Settings.route) },
+                onNavigateToEditTransaction = { id -> navController.navigate(Screen.AddTransaction.createRoute(id)) }
             )
         }
 

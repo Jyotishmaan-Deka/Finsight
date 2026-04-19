@@ -19,7 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import com.example.finsight.domain.model.Transaction
 import com.example.finsight.presentation.components.EmptyState
 import com.example.finsight.presentation.components.TransactionItem
@@ -35,7 +35,7 @@ fun TransactionsScreen(
     onNavigateToEditTransaction: (Long) -> Unit,
     viewModel: TransactionsViewModel = hiltViewModel()
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         Column(modifier = Modifier.fillMaxSize()) {

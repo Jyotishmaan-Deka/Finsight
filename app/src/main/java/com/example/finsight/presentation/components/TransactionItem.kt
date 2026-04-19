@@ -111,13 +111,13 @@ fun TransactionItem(
                     Spacer(modifier = Modifier.height(4.dp))
                     IconButton(
                         onClick = { showDeleteDialog = true },
-                        modifier = Modifier.size(20.dp)
+                        modifier = Modifier.size(36.dp)
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Delete,
                             contentDescription = "Delete",
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
-                            modifier = Modifier.size(14.dp)
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
+                            modifier = Modifier.size(18.dp)
                         )
                     }
                 }

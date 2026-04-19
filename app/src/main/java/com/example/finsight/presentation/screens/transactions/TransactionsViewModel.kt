@@ -7,7 +7,6 @@ import com.example.finsight.domain.model.Transaction
 import com.example.finsight.domain.model.TransactionType
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,7 +21,6 @@ data class TransactionsUiState(
     val isLoading: Boolean = true
 )
 
-@OptIn(FlowPreview::class, ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class TransactionsViewModel @Inject constructor(
     private val repository: TransactionRepository
@@ -35,7 +33,7 @@ class TransactionsViewModel @Inject constructor(
     val uiState: StateFlow<TransactionsUiState> = combine(
         repository.getAllTransactions(),
         _filter,
-        _searchQuery.debounce(300)
+        _searchQuery
     ) { allTransactions, filter, query ->
         _isLoading.value = false
         val filtered = allTransactions
@@ -61,7 +59,7 @@ class TransactionsViewModel @Inject constructor(
         )
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(5000),
+        started = SharingStarted.Eagerly,
         initialValue = TransactionsUiState()
     )
 

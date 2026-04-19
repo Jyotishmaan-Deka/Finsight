@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import com.example.finsight.domain.model.Goal
 import com.example.finsight.domain.model.GoalType
 import com.example.finsight.presentation.components.EmptyState
@@ -34,7 +34,7 @@ fun GoalsScreen(
     onNavigateToEditGoal: (Long) -> Unit,
     viewModel: GoalsViewModel = hiltViewModel()
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsState()
     var selectedTab by remember { mutableIntStateOf(0) }
 
     Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {

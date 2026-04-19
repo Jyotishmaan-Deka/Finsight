@@ -49,7 +49,7 @@ class SettingsDataStore @Inject constructor(
     }
 
     val darkMode: Flow<Boolean> = context.dataStore.data.map { it[DARK_MODE_KEY] ?: false }
-    val userName: Flow<String> = context.dataStore.data.map { it[USER_NAME_KEY] ?: "User" }
+    val userName: Flow<String> = context.dataStore.data.map { it[USER_NAME_KEY] ?: "" }
     val currency: Flow<String> = context.dataStore.data.map { it[CURRENCY_KEY] ?: "INR" }
 
     suspend fun setDarkMode(value: Boolean) = context.dataStore.edit { it[DARK_MODE_KEY] = value }
@@ -76,6 +76,7 @@ class SettingsViewModel @Inject constructor(
     fun setDarkMode(value: Boolean) = viewModelScope.launch { dataStore.setDarkMode(value) }
     fun setUserName(value: String) = viewModelScope.launch { dataStore.setUserName(value) }
     fun setCurrency(value: String) = viewModelScope.launch { dataStore.setCurrency(value) }
+    fun signOut() = viewModelScope.launch { dataStore.setUserName("") }
 }
 
 @Composable
@@ -302,6 +303,19 @@ fun SettingsScreen(
             )
         }
 
+        Spacer(Modifier.height(16.dp))
+
+        // Account section
+        SettingsSection("Account") {
+            SettingsClickItem(
+                icon = Icons.Filled.Logout,
+                iconColor = Color(0xFFEF5350),
+                title = "Sign Out",
+                subtitle = "Return to login screen",
+                onClick = { viewModel.signOut() }
+            )
+        }
+
         Spacer(Modifier.height(40.dp))
 
         // Footer
@@ -312,7 +326,7 @@ fun SettingsScreen(
             Text("💙", fontSize = 24.sp)
             Spacer(Modifier.height(4.dp))
             Text(
-                "Built with Kotlin & Jetpack Compose",
+                "Jyotishmaan Deka @2026",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

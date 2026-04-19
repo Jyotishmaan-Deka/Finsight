@@ -5,36 +5,49 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Background circle -->
+    <!-- Outer soft ring -->
+    <path
+        android:fillColor="#1AFFFFFF"
+        android:pathData="M18,54 a36,36 0,1 1,72 0 a36,36 0,1 1,-72 0" />
+
+    <!-- White circle base -->
     <path
         android:fillColor="#FFFFFF"
-        android:pathData="M54,54m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0" />
+        android:pathData="M24,54 a30,30 0,1 1,60 0 a30,30 0,1 1,-60 0" />
 
-    <!-- Chart bars -->
+    <!-- Chart bars (left to right, growing) -->
+    <path android:fillColor="#6C63FF" android:pathData="M30,67 L30,54 L37,54 L37,67 Z" />
+    <path android:fillColor="#7C74FF" android:pathData="M39,67 L39,48 L46,48 L46,67 Z" />
+    <path android:fillColor="#8C85FF" android:pathData="M48,67 L48,52 L55,52 L55,67 Z" />
+    <path android:fillColor="#4ECDC4" android:pathData="M57,67 L57,42 L64,42 L64,67 Z" />
+    <path android:fillColor="#3DBDB5" android:pathData="M66,67 L66,36 L73,36 L73,67 Z" />
+
+    <!-- Base line -->
     <path
-        android:fillColor="#6C63FF"
-        android:pathData="M30,66 L30,50 L38,50 L38,66 Z" />
-    <path
-        android:fillColor="#6C63FF"
-        android:pathData="M42,66 L42,42 L50,42 L50,66 Z" />
-    <path
-        android:fillColor="#6C63FF"
-        android:pathData="M54,66 L54,48 L62,48 L62,66 Z" />
-    <path
-        android:fillColor="#4ECDC4"
-        android:pathData="M66,66 L66,36 L74,36 L74,66 Z" />
+        android:strokeColor="#6C63FF"
+        android:strokeWidth="2"
+        android:strokeLineCap="round"
+        android:pathData="M27,67 L76,67" />
 
     <!-- Upward trend line -->
     <path
         android:strokeColor="#FF6584"
-        android:strokeWidth="3"
+        android:strokeWidth="2.5"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
-        android:pathData="M28,62 L40,52 L52,56 L64,44 L76,36" />
+        android:pathData="M29,63 L40,54 L51,58 L62,47 L73,38" />
 
-    <!-- Dot on trend -->
+    <!-- Arrow head -->
+    <path
+        android:strokeColor="#FF6584"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M68,37 L73,38 L72,43" />
+
+    <!-- Highlight dot -->
     <path
         android:fillColor="#FF6584"
-        android:pathData="M76,36m-4,0a4,4 0,1 1,8 0a4,4 0,1 1,-8 0" />
+        android:pathData="M73,38m-3.5,0a3.5,3.5 0,1 1,7 0a3.5,3.5 0,1 1,-7 0" />
 
 </vector>

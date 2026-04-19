@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import com.example.finsight.domain.model.TransactionType
 
 data class HomeUiState(
     val totalBalance: Double = 0.0,
@@ -75,6 +76,12 @@ class HomeViewModel @Inject constructor(
             }.collect { state ->
                 _uiState.value = state
             }
+        }
+    }
+
+    fun deleteTransaction(transaction: Transaction) {
+        viewModelScope.launch {
+            transactionRepo.deleteTransaction(transaction)
         }
     }
 }

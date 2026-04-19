@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import com.example.finsight.domain.model.Goal
 import com.example.finsight.domain.model.GoalType
 import com.example.finsight.domain.model.Transaction
@@ -35,9 +35,10 @@ fun HomeScreen(
     onNavigateToTransactions: () -> Unit,
     onNavigateToAddTransaction: () -> Unit,
     onNavigateToSettings: () -> Unit,
+    onNavigateToEditTransaction: (Long) -> Unit = {},
     viewModel: HomeViewModel = hiltViewModel()
 ) {
-    val state by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsState()
     val scrollState = rememberScrollState()
     val greeting = getGreeting()
 
@@ -253,8 +254,8 @@ fun HomeScreen(
                     state.recentTransactions.forEachIndexed { idx, tx ->
                         TransactionItem(
                             transaction = tx,
-                            onClick = {},
-                            onDelete = {},
+                            onClick = { onNavigateToEditTransaction(tx.id) },
+                            onDelete = { viewModel.deleteTransaction(tx) },
                             animationDelay = idx * 60
                         )
                         if (idx < state.recentTransactions.lastIndex) {

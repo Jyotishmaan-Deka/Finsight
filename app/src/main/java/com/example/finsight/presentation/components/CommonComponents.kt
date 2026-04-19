@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.finsight.presentation.navigation.BottomNavItem
+import com.example.finsight.presentation.navigation.Screen
 import com.example.finsight.presentation.navigation.bottomNavItems
 import com.example.finsight.presentation.theme.Primary
 
@@ -32,7 +33,6 @@ fun FinsightBottomBar(navController: NavController) {
     NavigationBar(
         containerColor = MaterialTheme.colorScheme.surface,
         tonalElevation = 8.dp,
-        modifier = Modifier.height(72.dp)
     ) {
         bottomNavItems.forEach { item ->
             val selected = currentRoute == item.route
@@ -46,7 +46,10 @@ fun FinsightBottomBar(navController: NavController) {
                 onClick = {
                     if (currentRoute != item.route) {
                         navController.navigate(item.route) {
-                            popUpTo(navController.graph.startDestinationId) { saveState = true }
+                            popUpTo(Screen.Home.route) {
+                                saveState = true
+                                inclusive = false
+                            }
                             launchSingleTop = true
                             restoreState = true
                         }
@@ -57,7 +60,7 @@ fun FinsightBottomBar(navController: NavController) {
                         imageVector = if (selected) item.selectedIcon else item.unselectedIcon,
                         contentDescription = item.label,
                         tint = iconTint,
-                        modifier = Modifier.size(24.dp)
+                        modifier = Modifier.size(25.dp)
                     )
                 },
                 label = {
