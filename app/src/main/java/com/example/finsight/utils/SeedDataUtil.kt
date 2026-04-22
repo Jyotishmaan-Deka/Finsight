@@ -20,12 +20,9 @@ class SeedDataUtil @Inject constructor(
     suspend fun seedIfEmpty() {
         val existing = transactionRepository.getTransactionsByDateRangeSync(0L, Long.MAX_VALUE)
         if (existing.isNotEmpty()) return
-
-        // Seed transactions for the past 30 days
         val transactions = generateSampleTransactions()
         transactions.forEach { transactionRepository.insertTransaction(it) }
 
-        // Seed sample goals
         val goals = generateSampleGoals()
         goals.forEach { goalRepository.insertGoal(it) }
     }
@@ -145,7 +142,6 @@ class SeedDataUtil @Inject constructor(
             date = daysAgo(cal, 42)
         )
 
-        // 2 months ago
         transactions += Transaction(
             amount = 75000.0, type = TransactionType.INCOME,
             category = Category.SALARY, description = "Monthly Salary",

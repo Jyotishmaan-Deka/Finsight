@@ -74,7 +74,7 @@ class InsightsViewModel @Inject constructor(
                     val lastWeekTx = allTx.filter { it.date in lastWeekStart..lastWeekEnd }
                     val lastWeekExpense = lastWeekTx.filter { it.type == TransactionType.EXPENSE }.sumOf { it.amount }
 
-                    // Category breakdown this month
+                    // Category breakdown
                     val categoryTotals = thisMonthTx
                         .filter { it.type == TransactionType.EXPENSE }
                         .groupBy { it.category }
@@ -98,7 +98,7 @@ class InsightsViewModel @Inject constructor(
                         )
                     }
 
-                    // Daily last 7 days
+                    // last 7 days data
                     val dayFormat = SimpleDateFormat("EEE", Locale.getDefault())
                     val (last7Start, last7End) = DateUtils.getLast7DaysRange()
                     val daily7 = (0..6).map { dayOffset ->

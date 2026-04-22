@@ -7,8 +7,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
-// Using system default since custom fonts require font files
-// To add custom fonts: add font files to res/font/ and reference here
 val AppTypography = Typography(
     displayLarge = TextStyle(
         fontWeight = FontWeight.Bold,

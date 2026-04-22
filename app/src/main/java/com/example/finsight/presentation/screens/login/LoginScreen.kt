@@ -47,15 +47,10 @@ import java.net.HttpURLConnection
 import java.net.URL
 import javax.inject.Inject
 
-// ── JSONBin helper ────────────────────────────────────────────────────────────
-// JSONBin.io is a free REST-based JSON storage service.
-// We use it to persist user accounts as a simple { email -> hashedPassword } map.
-// API key below is a free-tier master key – replace with your own from jsonbin.io
 private const val JSONBIN_API_KEY = "\$2a\$10\$PLACEHOLDER_REPLACE_WITH_YOUR_JSONBIN_KEY"
 private const val JSONBIN_BIN_ID  = "PLACEHOLDER_REPLACE_WITH_YOUR_BIN_ID"
 private const val JSONBIN_BASE    = "https://api.jsonbin.io/v3/b"
 
-// Simple hash so we never store plain-text passwords in the cloud bin
 private fun simpleHash(input: String): String {
     var h = 5381L
     for (c in input) h = h * 33 + c.code
@@ -77,17 +72,15 @@ class LoginViewModel @Inject constructor(
     private val _result = MutableStateFlow<LoginResult>(LoginResult.Idle)
     val result: StateFlow<LoginResult> = _result
 
-    // ── Guest login – just store "Guest" as the username ─────────────────────
     fun loginAsGuest() {
         viewModelScope.launch {
             _result.value = LoginResult.Loading
-            delay(600) // brief UX pause
+            delay(600) //
             dataStore.setUserName("Guest")
             _result.value = LoginResult.Success
         }
     }
 
-    // ── Email sign-up / sign-in via JSONBin ───────────────────────────────────
     fun loginWithEmail(email: String, password: String, isSignUp: Boolean) {
         if (email.isBlank() || !email.contains("@")) {
             _result.value = LoginResult.Error("Please enter a valid email")
@@ -112,8 +105,7 @@ class LoginViewModel @Inject constructor(
                     _result.value = LoginResult.Error(ok.second)
                 }
             } catch (e: Exception) {
-                // Network unavailable – fall back to offline login so the app
-                // still works without internet (stores locally only)
+                // Network unavailable fall back to offline login
                 val displayName = email.substringBefore("@").replaceFirstChar { it.uppercase() }
                 dataStore.setUserName(displayName)
                 _result.value = LoginResult.Success
@@ -121,7 +113,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    // ── JSONBin sign-up: add user entry to the shared bin ─────────────────────
     private fun signUp(email: String, password: String): Pair<Boolean, String> {
         val existing = readBin() ?: JSONObject()
         if (existing.has(email)) return Pair(false, "Account already exists. Please sign in.")
@@ -130,7 +121,6 @@ class LoginViewModel @Inject constructor(
         return Pair(true, "")
     }
 
-    // ── JSONBin sign-in: verify credentials ───────────────────────────────────
     private fun signIn(email: String, password: String): Pair<Boolean, String> {
         val data = readBin() ?: return Pair(false, "Could not reach server. Logging in offline.")
         if (!data.has(email)) return Pair(false, "No account found. Please sign up first.")
@@ -167,7 +157,6 @@ class LoginViewModel @Inject constructor(
     }
 }
 
-// ── LoginScreen UI ────────────────────────────────────────────────────────────
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
@@ -180,7 +169,6 @@ fun LoginScreen(
     var passwordVisible by remember { mutableStateOf(false) }
     val focusManager = LocalFocusManager.current
 
-    // React to success
     LaunchedEffect(result) {
         if (result is LoginResult.Success) onLoginSuccess()
     }

@@ -47,17 +47,14 @@ class GoalsViewModel @Inject constructor(
             val lastCheckin = goal.lastCheckinDate
 
             val newStreak = if (lastCheckin != null && DateUtils.isSameDay(lastCheckin, today)) {
-                // Already checked in today
                 goal.streakDays
             } else if (lastCheckin != null) {
                 val yesterday = Calendar.getInstance().apply {
                     add(Calendar.DAY_OF_YEAR, -1)
                 }.timeInMillis
                 if (DateUtils.isSameDay(lastCheckin, yesterday)) {
-                    // Consecutive day
                     goal.streakDays + 1
                 } else {
-                    // Streak broken
                     1
                 }
             } else {

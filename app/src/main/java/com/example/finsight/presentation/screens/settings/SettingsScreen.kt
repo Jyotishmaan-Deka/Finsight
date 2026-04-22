@@ -197,7 +197,7 @@ fun SettingsScreen(
 
         Spacer(Modifier.height(8.dp))
 
-        // Profile card
+        // Profile
         Card(
             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
             shape = RoundedCornerShape(20.dp),

@@ -111,7 +111,6 @@ fun HomeScreen(
                 }
             }
 
-            // Summary Cards
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -266,7 +265,6 @@ fun HomeScreen(
             }
         }
 
-        // FAB
         FloatingActionButton(
             onClick = onNavigateToAddTransaction,
             modifier = Modifier

@@ -37,7 +37,7 @@ val DarkTextPrimary = Color(0xFFF0F0F6)
 val DarkTextSecondary = Color(0xFF9CA3AF)
 val DarkTextMuted = Color(0xFF6B7280)
 
-// Gradients (used as start/end)
+
 val GradientStart = Color(0xFF6C63FF)
 val GradientEnd = Color(0xFF4ECDC4)
 val GradientIncomeStart = Color(0xFF00C853)
@@ -45,7 +45,6 @@ val GradientIncomeEnd = Color(0xFF69F0AE)
 val GradientExpenseStart = Color(0xFFFF4757)
 val GradientExpenseEnd = Color(0xFFFF7675)
 
-// Chart colors
 val ChartColors = listOf(
     Color(0xFF6C63FF),
     Color(0xFF00C853),

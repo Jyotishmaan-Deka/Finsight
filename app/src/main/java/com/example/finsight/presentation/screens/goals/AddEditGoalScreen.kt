@@ -160,7 +160,7 @@ fun AddEditGoalScreen(
 
         Spacer(Modifier.height(12.dp))
 
-        // Goal Type Selection
+        // Goal Type
         Column(modifier = Modifier.padding(horizontal = 20.dp)) {
             Text("Goal Type", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold), color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(Modifier.height(10.dp))
@@ -224,7 +224,6 @@ fun AddEditGoalScreen(
 
         Spacer(Modifier.height(16.dp))
 
-        // Target Amount (hide for no-spend)
         if (selectedType != GoalType.NO_SPEND) {
             Column(modifier = Modifier.padding(horizontal = 20.dp)) {
                 Text(
@@ -253,7 +252,6 @@ fun AddEditGoalScreen(
             Spacer(Modifier.height(16.dp))
         }
 
-        // Deadline
         Column(modifier = Modifier.padding(horizontal = 20.dp)) {
             Text("Deadline (optional)", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold), color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(Modifier.height(6.dp))
@@ -278,7 +276,6 @@ fun AddEditGoalScreen(
 
         Spacer(Modifier.height(16.dp))
 
-        // Color picker
         Column(modifier = Modifier.padding(horizontal = 20.dp)) {
             Text("Color", style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold), color = MaterialTheme.colorScheme.onSurfaceVariant)
             Spacer(Modifier.height(10.dp))
@@ -298,7 +295,6 @@ fun AddEditGoalScreen(
 
         Spacer(Modifier.height(32.dp))
 
-        // Save
         Button(
             onClick = {
                 var hasError = false

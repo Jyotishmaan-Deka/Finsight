@@ -109,7 +109,6 @@ fun AddEditTransactionScreen(
     var amountError by remember { mutableStateOf(false) }
     var isEditMode by remember { mutableStateOf(false) }
 
-    // Load existing transaction if editing
     LaunchedEffect(transactionId) {
         if (transactionId != null && transactionId > 0) {
             viewModel.loadTransaction(transactionId)?.let { tx ->
@@ -128,7 +127,6 @@ fun AddEditTransactionScreen(
         if (isSaved) onNavigateBack()
     }
 
-    // Update category options when type changes
     LaunchedEffect(selectedType) {
         selectedCategory = if (selectedType == TransactionType.INCOME)
             Category.SALARY else Category.FOOD
@@ -160,7 +158,6 @@ fun AddEditTransactionScreen(
             .background(MaterialTheme.colorScheme.background)
             .verticalScroll(rememberScrollState())
     ) {
-        // Top bar
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -186,8 +183,6 @@ fun AddEditTransactionScreen(
         }
 
         Spacer(modifier = Modifier.height(8.dp))
-
-        // Type toggle
         Row(
             modifier = Modifier
                 .fillMaxWidth()

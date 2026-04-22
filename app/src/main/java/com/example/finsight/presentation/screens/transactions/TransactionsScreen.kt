@@ -39,7 +39,6 @@ fun TransactionsScreen(
 
     Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         Column(modifier = Modifier.fillMaxSize()) {
-            // Top bar
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -53,8 +52,6 @@ fun TransactionsScreen(
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(modifier = Modifier.height(14.dp))
-
-                // Search bar
                 OutlinedTextField(
                     value = state.searchQuery,
                     onValueChange = { viewModel.setSearchQuery(it) },
@@ -84,8 +81,6 @@ fun TransactionsScreen(
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
-
-                // Filter chips
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     TransactionFilter.entries.forEach { filter ->
                         val selected = state.filter == filter
@@ -107,7 +102,6 @@ fun TransactionsScreen(
                 }
             }
 
-            // Summary strip
             if (state.filteredTransactions.isNotEmpty()) {
                 val totalIncome = state.filteredTransactions
                     .filter { it.type.name == "INCOME" }

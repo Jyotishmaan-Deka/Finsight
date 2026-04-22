@@ -31,7 +31,6 @@ fun InsightsScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Use conditional rendering instead of early returns
         when {
             state.isLoading -> {
                 Box(
@@ -54,13 +53,11 @@ fun InsightsScreen(
                 }
             }
             else -> {
-                // Content when data is available
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
                 ) {
-                    // Header
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -79,7 +76,6 @@ fun InsightsScreen(
                         )
                     }
 
-                    // Key metrics row
                     Row(
                         modifier = Modifier.padding(horizontal = 20.dp),
                         horizontalArrangement = Arrangement.spacedBy(10.dp)
@@ -109,7 +105,6 @@ fun InsightsScreen(
 
                     Spacer(modifier = Modifier.height(24.dp))
 
-                    // Weekly comparison
                     Card(
                         modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                         shape = RoundedCornerShape(20.dp),
@@ -163,7 +158,6 @@ fun InsightsScreen(
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Daily spend - last 7 days line chart
                     if (state.dailyLast7.any { it.amount > 0 }) {
                         Card(
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
@@ -185,7 +179,6 @@ fun InsightsScreen(
 
                                 Spacer(Modifier.height(8.dp))
 
-                                // Day labels
                                 Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
                                     state.dailyLast7.forEach { d ->
                                         Text(
@@ -200,7 +193,6 @@ fun InsightsScreen(
                         Spacer(modifier = Modifier.height(16.dp))
                     }
 
-                    // Category breakdown
                     if (state.topCategories.isNotEmpty()) {
                         Card(
                             modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),

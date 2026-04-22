@@ -39,7 +39,6 @@ fun GoalsScreen(
 
     Box(modifier = Modifier.fillMaxSize().background(MaterialTheme.colorScheme.background)) {
         Column(modifier = Modifier.fillMaxSize()) {
-            // Header
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -73,8 +72,6 @@ fun GoalsScreen(
                 }
 
                 Spacer(modifier = Modifier.height(16.dp))
-
-                // Stats row
                 if (state.allGoals.isNotEmpty()) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -88,7 +85,6 @@ fun GoalsScreen(
                     Spacer(modifier = Modifier.height(16.dp))
                 }
 
-                // Tabs
                 TabRow(
                     selectedTabIndex = selectedTab,
                     containerColor = MaterialTheme.colorScheme.surface,
@@ -198,7 +194,6 @@ fun GoalCard(
         modifier = Modifier.fillMaxWidth()
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
-            // Header
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -295,7 +290,6 @@ fun GoalCard(
                     }
                 }
 
-                // Streak boxes (last 7 days visual)
                 Spacer(Modifier.height(12.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
